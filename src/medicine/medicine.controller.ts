@@ -23,11 +23,10 @@ export class MedicineController {
   @Post()
   @UseInterceptors(FileInterceptor('pic'))
   create(
-    @UploadedFile() pic: Express.Multer.File,
     @Body() createMedicineDto: CreateMedicineDto,
+    @UploadedFile() pic?: Express.Multer.File,
   ) {
-    console.log(pic, createMedicineDto);
-    return this.medicineService.create(pic, createMedicineDto);
+    return this.medicineService.create(createMedicineDto, pic);
   }
 
   @Get()

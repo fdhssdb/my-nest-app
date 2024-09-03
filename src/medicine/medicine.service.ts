@@ -1,12 +1,11 @@
-import { Injectable, Res } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Medicine } from './entities/medicine.entity';
 import { Repository, Like } from 'typeorm';
 import * as fs from 'node:fs';
-import { join } from 'path';
-import path from 'node:path';
+import { join } from 'node:path';
 
 @Injectable()
 export class MedicineService {
@@ -14,12 +13,13 @@ export class MedicineService {
     @InjectRepository(Medicine) private readonly medicine: Repository<Medicine>,
   ) {}
 
-  create(pic, createMedicineDto: CreateMedicineDto) {
-    console.log('新增');
+  create(createMedicineDto: CreateMedicineDto, pic?: Express.Multer.File) {
+    console.log('新增', pic);
     const data = new Medicine();
     data.name = createMedicineDto.name;
     data.desc = createMedicineDto.desc;
-    data.pic = pic.filename;
+    data.pic = pic ? pic.filename : '';
+
     return this.medicine.save(data);
   }
 
@@ -70,12 +70,15 @@ export class MedicineService {
         id: id,
       },
     });
-    const pathname = join(__dirname, '../images', record[0].pic);
-    console.log(pathname);
-    fs.unlink(pathname, (err) => {
-      if (err) throw err;
-      console.log('文件已被删除');
-    });
+
+    if (record[0].pic) {
+      const pathname = join(__dirname, '../../public', record[0].pic);
+      fs.unlink(pathname, (err) => {
+        if (err) throw err;
+        console.log('文件已被删除');
+      });
+    }
+
     return this.medicine.delete(id);
   }
 }

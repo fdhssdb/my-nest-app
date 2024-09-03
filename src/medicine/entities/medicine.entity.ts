@@ -1,10 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn,CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  OneToMany,
+  Unique,
+} from 'typeorm';
+import { List } from 'src/list/entities/list.entity';
 @Entity()
 export class Medicine {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({unique: true})
   name: string;
 
   @Column()
@@ -13,6 +21,9 @@ export class Medicine {
   @Column()
   desc: string;
 
-  @CreateDateColumn({type:"timestamp"})
-  create_time:Date
+  @CreateDateColumn({ type: 'timestamp' })
+  create_time: Date;
+
+  @OneToMany(() => List, (list) => list.id)
+  list: List[];
 }

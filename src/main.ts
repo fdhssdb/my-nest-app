@@ -33,8 +33,8 @@ async function bootstrap() {
   // });
 
   // __dirname: D:\MyProjects\my-nest-app\dist
-  // 访问静态资源文件目录:http://localhost:3000/xiaoman/static/文件名
-  app.useStaticAssets(join(__dirname, 'images'), {
+  // 访问静态资源文件目录:http://localhost:3000/static/文件名
+  app.useStaticAssets(join(__dirname, '../public'), {
     prefix: '/static',
   });
   // app.use(middleWareAll);

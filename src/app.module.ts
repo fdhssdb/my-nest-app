@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ListModule } from './list/list.module';
 import { ConfigureModule } from './configure/configure.module';
-import { UploadModule } from './upload/upload.module';
 import { PModule } from './p/p.module';
 import { LoginModule } from './login/login.module';
 import { GuardModule } from './guard/guard.module';
@@ -24,10 +23,10 @@ import { MedicineModule } from './medicine/medicine.module';
     ConfigureModule.forRoot({
       path: '/xiaoman',
     }),
-    UploadModule,
     PModule,
     LoginModule,
     GuardModule,
+    MedicineModule,
     TypeOrmModule.forRoot({
       type: 'mysql', //数据库类型
       username: 'root', //账号
@@ -40,9 +39,7 @@ import { MedicineModule } from './medicine/medicine.module';
       retryDelay: 500, //重试连接数据库间隔
       retryAttempts: 10, //重试连接数据库的次数
       autoLoadEntities: true, //如果为true,将自动加载实体 forFeature()方法注册的每个实体都将自动添加到配置对象的实体数组中
-    }),
-
-    MedicineModule,
+    }) 
   ],
   controllers: [AppController],
   providers: [AppService],
