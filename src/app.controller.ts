@@ -13,6 +13,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.userService.findAll();
+    return this.appService.getHello();
   }
 }

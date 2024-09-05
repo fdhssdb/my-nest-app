@@ -34,6 +34,11 @@ export class MedicineController {
     return this.medicineService.findAll(query);
   }
 
+  @Get('/getOptions')
+  getOptions() {
+    return this.medicineService.getOptions();
+  }
+
   @Patch(':id')
   @UseInterceptors(FileInterceptor('pic'))
   update(

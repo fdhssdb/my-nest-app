@@ -10,17 +10,19 @@ import fs from 'node:fs';
 @Injectable()
 export class ListService {
   constructor(
+    // @InjectRepository(User) private readonly user: Repository<User>,
     @InjectRepository(List) private readonly list: Repository<List>,
   ) {}
   create(createListDto: CreateListDto, pic: Express.Multer.File) {
     console.log('新增', createListDto);
     const data = new List();
-    // name,pic,price,amount,desc
     data.name = createListDto.name;
     data.pic = pic.filename ? pic.filename : '';
     data.price = createListDto.price;
     data.amount = createListDto.amount;
     data.desc = createListDto.desc;
+    data.detail = createListDto.detail;
+    data.medicine = createListDto.medicine;
     return this.list.save(data);
   }
 
@@ -29,6 +31,9 @@ export class ListService {
     const list = await this.list.find({
       where: {
         name: Like(`%${query.keywords}`),
+      },
+      relations: {
+        medicine: true
       },
       order: {
         id: 'DESC',
@@ -41,6 +46,7 @@ export class ListService {
         name: Like(`%${query.keywords}`),
       },
     });
+    console.log(list);
     return {
       data: {
         list,
@@ -62,6 +68,7 @@ export class ListService {
   }
 
   async remove(id: number) {
+    console.log(id);
     const record = await this.list.find({
       where: {
         id: id,

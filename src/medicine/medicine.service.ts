@@ -24,8 +24,7 @@ export class MedicineService {
   }
 
   async findAll(query: { per: number; page: number; keywords: string }) {
-    console.log('查找所有药品信息');
-
+    console.log('查询药品信息', query.per, query.page, query.keywords);
     const list = await this.medicine.find({
       where: {
         name: Like(`%${query.keywords}%`),
@@ -46,6 +45,16 @@ export class MedicineService {
         list,
         total,
       },
+    };
+  }
+
+  async getOptions() {
+    console.log('查询所有药品种类');
+    const options = await this.medicine.find({
+      select: ['id', 'name'],
+    });
+    return {
+      data: { options },
     };
   }
 

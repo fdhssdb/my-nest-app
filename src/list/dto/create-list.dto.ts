@@ -1,3 +1,5 @@
+import { Medicine } from "src/medicine/entities/medicine.entity";
+
 export class CreateListDto {
     id: number;
     name: string;
@@ -5,4 +7,6 @@ export class CreateListDto {
     price: number;
     amount: number;
     desc: string;
+    detail: string;
+    medicine: Medicine;
 }

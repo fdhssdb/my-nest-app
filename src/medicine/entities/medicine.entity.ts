@@ -3,16 +3,14 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToMany,
-  Unique,
 } from 'typeorm';
-import { List } from 'src/list/entities/list.entity';
+
 @Entity()
 export class Medicine {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({unique: true})
+  @Column({ unique: true })
   name: string;
 
   @Column()
@@ -23,7 +21,4 @@ export class Medicine {
 
   @CreateDateColumn({ type: 'timestamp' })
   create_time: Date;
-
-  @OneToMany(() => List, (list) => list.id)
-  list: List[];
 }

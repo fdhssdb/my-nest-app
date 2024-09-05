@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  Relation
 } from 'typeorm';
 import { Medicine } from 'src/medicine/entities/medicine.entity';
 
@@ -27,9 +28,12 @@ export class List {
   @Column()
   desc: string;
 
+  @Column()
+  detail: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   create_time: Date;
 
   @ManyToOne(() => Medicine, (medicine) => medicine.id)
-  medicine: Medicine;
+  medicine: Relation<Medicine>;
 }

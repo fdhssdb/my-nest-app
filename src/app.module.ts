@@ -5,7 +5,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ListModule } from './list/list.module';
-import { ConfigureModule } from './configure/configure.module';
 import { PModule } from './p/p.module';
 import { LoginModule } from './login/login.module';
 import { GuardModule } from './guard/guard.module';
@@ -20,9 +19,6 @@ import { MedicineModule } from './medicine/medicine.module';
     }),
     UserModule,
     ListModule,
-    ConfigureModule.forRoot({
-      path: '/xiaoman',
-    }),
     PModule,
     LoginModule,
     GuardModule,
